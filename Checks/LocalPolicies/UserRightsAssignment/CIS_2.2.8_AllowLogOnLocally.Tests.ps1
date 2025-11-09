@@ -3,7 +3,8 @@
     CIS Check: 2.2.8 - Allow log on locally
 
 .DESCRIPTION
-    Validates that only 'Administrators' are assigned the SeInteractiveLogonRight privilege.
+    Validates that only 'Administrators' are assigned 
+    the SeInteractiveLogonRight privilege.
 
 .NOTES
     Layer: 2
@@ -26,26 +27,13 @@ param()
 $script:testTags = @('Level1', 'Server2019', 'Server2022', 'MemberServer', 'Enabled')
 
 BeforeAll {
-    # Import BaselineUtils module (installed in PSModulePath)
     Import-Module BaselineUtils -ErrorAction Stop
 
-    # Ensure administrative privileges
+    # Ensure administrative rights
     Test-AdministratorRights
 
-    # Create temporary test data directory
-    $script:testDataPath = New-TestDataDirectory -RootPath $PSScriptRoot
-
-    # Export current security policy to secedit.inf
-    $script:seceditOutput = Join-Path $script:testDataPath "secedit.inf"
-    Export-SecurityPolicy -OutputPath $script:seceditOutput
-
-    # Retrieve privilege assignments for SeInteractiveLogonRight
-    $script:sidString = Get-PrivilegeAssignments -FilePath $script:seceditOutput -PrivilegeName 'SeInteractiveLogonRight'
-}
-
-AfterAll {
-    # Clean up temporary directory
-    Remove-TestDataDirectory -Path $script:testDataPath
+    # Retrieve privilege assignments using the helper function
+    $script:sidString = Get-PrivilegeAssignmentsForCheck -PrivilegeName 'SeInteractiveLogonRight'
 }
 
 Describe "CIS Check: 2.2.8 - Allow log on locally" -Tag $script:testTags {
