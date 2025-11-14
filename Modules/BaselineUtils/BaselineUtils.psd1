@@ -3,19 +3,19 @@
     RootModule        = 'BaselineUtils.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '1.3.1'
+    ModuleVersion     = '1.3.2'
 
     # Unique identifier for this module
     GUID              = 'b1234567-89ab-cdef-0123-456789abcdef'
 
     # Author of this module
-    Author            = 'RBA'
+    Author            = 'RBB'
 
     # Company or vendor of this module
-    CompanyName       = 'RBA'
+    CompanyName       = 'RBB'
 
     # Copyright statement for this module
-    Copyright         = '(c) 2025 RBA. All rights reserved.'
+    Copyright         = '(c) 2025 RBB. All rights reserved.'
 
     # Description of the functionality provided by this module
     Description       = 'Utility functions for CIS Benchmark Pester tests on Windows Server 2022. 
@@ -31,7 +31,8 @@
         'Export-SecurityPolicy',
         'Get-SecurityPolicy',
         'Get-PrivilegeAssignments',
-        'Test-PrivilegeAssignments'
+        'Test-PrivilegeAssignments',
+        'Get-SecurityOptionValue'
     )
 
     # Cmdlets to export from this module
