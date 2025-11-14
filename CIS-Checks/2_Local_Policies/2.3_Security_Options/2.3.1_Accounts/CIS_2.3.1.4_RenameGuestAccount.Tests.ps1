@@ -1,38 +1,37 @@
 <#
 .SYNOPSIS
-    CIS Check: 2.3.1.4 - Rename Guest account
+    CIS Check: 2.3.1.4 - Rename guest account
 
 .DESCRIPTION
-    Ensures the built-in Guest account has been renamed from "Guest".
-    Reads the Security Option:
-        - NewGuestName
+    Ensures that the built-in Guest account has been renamed.
+    CIS only requires that it is NOT named "Guest".
 
 .NOTES
-    Requires defining expected renamed Guest name.
+    CIS Level: 1
+    Automated Check
+
+.LINK
+    https://www.cisecurity.org/benchmark/windows_server
 #>
 
 param()
 
-$script:testTags = @('Level1','Server2019','Server2022','Enabled')
-
-# TODO: Set correct renamed Guest account name for your environment
-$expectedGuestName = 'LocalGuest'
+$script:testTags = @("Level1","Server2019","Server2022","Enabled")
 
 BeforeAll {
 
-    Import-Module BaselineUtils
-    Test-AdminRights
+    Test-AdministratorRights
 
-    $script:guestName = Get-SecurityOptionValue -OptionName 'NewGuestName'
+    # Retrieve the configured Guest account name
+    $script:guestName = Get-SecurityOptionValue -OptionName "NewGuestName"
 }
 
-Describe "CIS Check: 2.3.1.4 - Rename Guest account" -Tag $script:testTags {
+Describe "CIS 2.3.1.4 - Rename Guest Account" -Tag $script:testTags {
 
-    Context "Security Option: NewGuestName" {
+    Context "Guest account rename policy" {
 
-        It "Guest account must be renamed to '$expectedGuestName'" {
-
-            $script:guestName | Should -Be $expectedGuestName
+        It "Should NOT be 'Guest'" {
+            $script:guestName | Should -Not -Be "Guest"
         }
     }
 }
