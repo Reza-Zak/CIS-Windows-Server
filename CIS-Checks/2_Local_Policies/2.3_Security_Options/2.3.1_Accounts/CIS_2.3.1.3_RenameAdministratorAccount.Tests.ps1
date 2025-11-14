@@ -1,38 +1,37 @@
 <#
 .SYNOPSIS
-    CIS Check: 2.3.1.3 - Rename Administrator account
+    CIS Check: 2.3.1.3 - Rename administrator account
 
 .DESCRIPTION
-    Ensures the built-in Administrator account has been renamed from "Administrator".
-    Reads the Security Option:
-        - NewAdministratorName
+    Ensures that the built-in Administrator account has been renamed.
+    CIS does not enforce a specific name, only that it is NOT "Administrator".
 
 .NOTES
-    Requires defining the expected renamed account name in this script.
+    CIS Level: 1
+    Automated Check
+
+.LINK
+    https://www.cisecurity.org/benchmark/windows_server
 #>
 
 param()
 
-$script:testTags = @('Level1','Server2019','Server2022','Enabled')
-
-# TODO: Set the expected Administrator rename value for your environment
-$expectedAdminName = 'LocalAdmin'
+$script:testTags = @("Level1","Server2019","Server2022","Enabled")
 
 BeforeAll {
 
-    Import-Module BaselineUtils -ErrorAction Stop
-    Test-AdminRights
+    Test-AdministratorRights
 
-    $script:adminName = Get-SecurityOptionValue -OptionName 'NewAdministratorName'
+    # Retrieve the configured name of the built-in Administrator account
+    $script:adminName = Get-SecurityOptionValue -OptionName "NewAdministratorName"
 }
 
-Describe "CIS Check: 2.3.1.3 - Rename Administrator account" -Tag $script:testTags {
+Describe "CIS 2.3.1.3 - Rename Administrator Account" -Tag $script:testTags {
 
-    Context "Security Option: NewAdministratorName" {
+    Context "Administrator account must be renamed" {
 
-        It "Administrator account MUST be renamed to '$expectedAdminName'" {
-
-            $script:adminName | Should -Be $expectedAdminName
+        It "Should NOT be 'Administrator'" {
+            $script:adminName | Should -Not -Be "Administrator"
         }
     }
 }
