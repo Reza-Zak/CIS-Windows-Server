@@ -1,40 +1,38 @@
 <#
 .SYNOPSIS
-    CIS Check: 2.3.1.1 - Accounts: Guest account status (MS Only)
+    CIS Check: 2.3.1.1 - Accounts: Guest account status
 
 .DESCRIPTION
-    Ensures the Guest account is DISABLED.
-    This setting corresponds to the security option value:
-        - 'EnableGuestAccount'
-    Where:
-        0 = Disabled   (CIS compliance)
-        1 = Enabled    (Non-compliant)
+    Validates that the Guest account is disabled.
+    CIS requirement: Value must be 0 (Disabled).
 
 .NOTES
-    Layer: 2
     CIS Level: 1
     Role: Member Server only
+    Automated Check
+
+.LINK
+    https://www.cisecurity.org/benchmark/windows_server
 #>
 
 param()
 
-$script:testTags = @('Level1','Server2019','Server2022','MemberServer','Enabled')
+$script:testTags = @("Level1","Server2019","Server2022","MemberServer","Enabled")
 
 BeforeAll {
 
-    Import-Module BaselineUtils -ErrorAction Stop
-    Test-AdminRights
+    # Ensure test is running with administrative privileges
+    Test-AdministratorRights
 
-    # Retrieve security option value
-    $script:guestStatus = Get-SecurityOptionValue -OptionName 'EnableGuestAccount'
+    # Retrieve SECPOL-based security option using module function
+    $script:guestStatus = Get-SecurityOptionValue -OptionName "EnableGuestAccount"
 }
 
-Describe "CIS Check: 2.3.1.1 - Guest account status" -Tag $script:testTags {
+Describe "CIS 2.3.1.1 - Accounts: Guest account status" -Tag $script:testTags {
 
-    Context "Security Option: EnableGuestAccount" {
+    Context "Guest account must be disabled" {
 
-        It "Guest account MUST be disabled (value = 0)" {
-
+        It "Should be set to Disabled (0)" {
             [int]$script:guestStatus | Should -Be 0
         }
     }
