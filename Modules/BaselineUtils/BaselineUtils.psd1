@@ -52,7 +52,7 @@
             ProjectUri   = 'https://github.com/YourOrg/CIS-Windows2022'
             ReleaseNotes = 'Refactored function names for PowerShell verb consistency; 
                             split module into Public/Private structure; 
-                            version 1.3.1.'
+                            version 1.3.2.'
         }
     }
 }
