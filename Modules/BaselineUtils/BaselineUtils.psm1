@@ -1,28 +1,29 @@
 # ------------------------------------------------------------------------------------------------
 # BaselineUtils.psm1
-# Dynamic module loader for BaselineUtils PowerShell module
-# Loads Public & Private functions and exports only Public functions
+# Dynamic loader for all Public and Private functions.
+# Exports ONLY Public functions for clean encapsulation.
+# Version: 1.4.0
 # ------------------------------------------------------------------------------------------------
 
-# Define folder locations
+# Locate function folders
 $publicFolder  = Join-Path $PSScriptRoot 'Public'
 $privateFolder = Join-Path $PSScriptRoot 'Private'
 
 # ------------------------------------------------------------------------------------------------
-# Load Public Functions (Dot-Source)
+# Load Public Functions
 # ------------------------------------------------------------------------------------------------
 Get-ChildItem -Path $publicFolder -Filter *.ps1 -ErrorAction Stop |
     ForEach-Object { . $_.FullName }
 
 # ------------------------------------------------------------------------------------------------
-# Load Private Functions (Dot-Source)
+# Load Private Functions
 # ------------------------------------------------------------------------------------------------
 Get-ChildItem -Path $privateFolder -Filter *.ps1 -ErrorAction Stop |
     ForEach-Object { . $_.FullName }
 
 # ------------------------------------------------------------------------------------------------
-# Extract Public Function Names for Export
-# We read the function names from each Public function file
+# Extract Public Function Names
+# Reads each Public function file and finds the declared function name
 # ------------------------------------------------------------------------------------------------
 $publicFunctions =
     Get-ChildItem -Path $publicFolder -Filter *.ps1 |
@@ -34,6 +35,6 @@ $publicFunctions =
     }
 
 # ------------------------------------------------------------------------------------------------
-# Export only Public functions
+# Export Only Public Functions
 # ------------------------------------------------------------------------------------------------
 Export-ModuleMember -Function $publicFunctions
