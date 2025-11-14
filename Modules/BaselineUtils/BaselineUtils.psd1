@@ -1,108 +1,50 @@
 @{
-    # Script module file
+    # Script module file associated with this manifest
     RootModule        = 'BaselineUtils.psm1'
 
     # Module version
     ModuleVersion     = '1.4.0'
 
-    # GUID
+    # Unique identifier
     GUID              = 'b1234567-89ab-cdef-0123-456789abcdef'
 
-    # Author and Company
+    # Author / Company
     Author            = 'RBB'
     CompanyName       = 'RBB'
 
     # Copyright
     Copyright         = '(c) 2025 RBB. All rights reserved.'
 
-    # Description
+    # Detailed description
     Description       = @'
 BaselineUtils PowerShell module.
-Provides helper functions for CIS Benchmark automated Pester tests.
-Includes privilege testing, security policy exporting, parsing, and
-security option value retrieval for Windows Server 2019/2022.
+Provides helper functions for CIS Benchmark automation on Windows Server.
+Includes: export/parse security policy, test privilege assignments,
+account settings, and administrative rights validation.
 '@
 
-    # Minimum PowerShell version
+    # Minimum required PowerShell version
     PowerShellVersion = '5.1'
 
-    # Let PSM1 handle Export-ModuleMember
+    # Export all functions, but module will respect Public/Private in PSM1
     FunctionsToExport = '*'
     CmdletsToExport   = @()
     VariablesToExport = @()
     AliasesToExport   = @()
 
-    # Private data block
+    # Private metadata
     PrivateData = @{
         PSData = @{
-            Tags         = @('CIS','Pester','Security','WindowsServer')
+            Tags         = @('CIS','Pester','WindowsServer','Security','BaselineUtils')
             LicenseUri   = 'https://opensource.org/licenses/MIT'
             ProjectUri   = 'https://github.com/RBB/BaselineUtils'
             ReleaseNotes = @'
-Version 1.4.0
-- Refactored module to full Public/Private layout.
-- Added Test-AdministratorRights and New/Remove-TestDataDirectory.
-- Added Get-PrivilegeAssignmentsForCheck and Convert-SIDToName.
-- Now using automatic export via PSM1 dynamic loader.
+Version 1.4.0:
+- Full refactor to Public/Private folder layout
+- Added Test-AdministratorRights, New-TestDataDirectory, Remove-TestDataDirectory
+- Added Convert-SIDToName and Get-PrivilegeAssignmentsForCheck
+- PSM1 now dynamically loads and exports Public functions
 '@
-        }
-    }
-}
-@{
-    # Script module or binary module file associated with this manifest.
-    RootModule        = 'BaselineUtils.psm1'
-
-    # Version number of this module.
-    ModuleVersion     = '1.3.2'
-
-    # Unique identifier for this module
-    GUID              = 'b1234567-89ab-cdef-0123-456789abcdef'
-
-    # Author of this module
-    Author            = 'RBB'
-
-    # Company or vendor of this module
-    CompanyName       = 'RBB'
-
-    # Copyright statement for this module
-    Copyright         = '(c) 2025 RBB. All rights reserved.'
-
-    # Description of the functionality provided by this module
-    Description       = 'Utility functions for CIS Benchmark Pester tests on Windows Server 2022. 
-                         Provides helper commands to export, parse, and test system security policies 
-                         and privilege assignments for CIS compliance automation.'
-
-    # Minimum version of the PowerShell engine required by this module
-    PowerShellVersion = '5.1'
-
-    # Functions to export from this module
-    FunctionsToExport = @(
-        'Test-AdministratorRights',
-        'Export-SecurityPolicy',
-        'Get-SecurityPolicy',
-        'Get-PrivilegeAssignments',
-        'Test-PrivilegeAssignments',
-        'Get-SecurityOptionValue'
-    )
-
-    # Cmdlets to export from this module
-    CmdletsToExport   = @()
-
-    # Variables to export from this module
-    VariablesToExport = @()
-
-    # Aliases to export from this module
-    AliasesToExport   = @()
-
-    # Private data to pass to the module specified in RootModule
-    PrivateData = @{
-        PSData = @{
-            Tags         = @('CIS','Pester','WindowsServer2022','Security','BaselineUtils')
-            LicenseUri   = 'https://opensource.org/licenses/MIT'
-            ProjectUri   = 'https://github.com/YourOrg/CIS-Windows2022'
-            ReleaseNotes = 'Refactored function names for PowerShell verb consistency; 
-                            split module into Public/Private structure; 
-                            version 1.3.2.'
         }
     }
 }
