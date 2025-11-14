@@ -1,4 +1,54 @@
 @{
+    # Script module file
+    RootModule        = 'BaselineUtils.psm1'
+
+    # Module version
+    ModuleVersion     = '1.4.0'
+
+    # GUID
+    GUID              = 'b1234567-89ab-cdef-0123-456789abcdef'
+
+    # Author and Company
+    Author            = 'RBB'
+    CompanyName       = 'RBB'
+
+    # Copyright
+    Copyright         = '(c) 2025 RBB. All rights reserved.'
+
+    # Description
+    Description       = @'
+BaselineUtils PowerShell module.
+Provides helper functions for CIS Benchmark automated Pester tests.
+Includes privilege testing, security policy exporting, parsing, and
+security option value retrieval for Windows Server 2019/2022.
+'@
+
+    # Minimum PowerShell version
+    PowerShellVersion = '5.1'
+
+    # Let PSM1 handle Export-ModuleMember
+    FunctionsToExport = '*'
+    CmdletsToExport   = @()
+    VariablesToExport = @()
+    AliasesToExport   = @()
+
+    # Private data block
+    PrivateData = @{
+        PSData = @{
+            Tags         = @('CIS','Pester','Security','WindowsServer')
+            LicenseUri   = 'https://opensource.org/licenses/MIT'
+            ProjectUri   = 'https://github.com/RBB/BaselineUtils'
+            ReleaseNotes = @'
+Version 1.4.0
+- Refactored module to full Public/Private layout.
+- Added Test-AdministratorRights and New/Remove-TestDataDirectory.
+- Added Get-PrivilegeAssignmentsForCheck and Convert-SIDToName.
+- Now using automatic export via PSM1 dynamic loader.
+'@
+        }
+    }
+}
+@{
     # Script module or binary module file associated with this manifest.
     RootModule        = 'BaselineUtils.psm1'
 
